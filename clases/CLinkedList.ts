@@ -33,7 +33,6 @@ class CLinkedList implements ILinkedList {
     this._tail = newNode;
   }
   
-
   deleteFirst(): void {
     if (!this._head)
       return
@@ -76,21 +75,17 @@ class CLinkedList implements ILinkedList {
     }
   }
 
-
   contains(searchedValue: number): boolean {
-    let currentNode: Nodee | null = this._head;
-  
-    while (currentNode) {
-      if (currentNode.value === searchedValue) {
-        return true;
-      }
-      currentNode = currentNode.next;
-    }
-  
-    return false;
+    return this.indexOf(searchedValue) != -1;
+    // let currentNode: Nodee | null = this._head;
+    // while (currentNode) {
+    //   if (currentNode.value === searchedValue) {
+    //     return true;
+    //   }
+    //   currentNode = currentNode.next;
+    // }
+    // return false;
   }
-  
-
 
   indexOf(searchedValue: number): number {
     if (!this._head) return -1;
@@ -109,8 +104,37 @@ class CLinkedList implements ILinkedList {
   
     return IndexCounter;
   }
-  
 
+  reverse():void{
+    if (this._head !== null && this._tail !== null && this._head !== this._tail){
+
+      let auxNode: Nodee | null = null;
+      let lastIterationPoint: Nodee | null = null;
+      
+      while(auxNode != this._head){
+
+        let currentNode: Nodee = this._head;
+
+        if(currentNode.next && currentNode.next != lastIterationPoint){
+          auxNode = currentNode;
+          currentNode = currentNode.next;
+        } else {
+          if(auxNode == this._head)
+            lastIterationPoint!.next = this._head
+          else {
+            currentNode.next = auxNode;
+            lastIterationPoint = currentNode;
+          }
+        }
+      }
+      let auxHead : Nodee | null = this._head;
+      this._head = this._tail;
+      this._tail = auxHead;
+      auxHead = null
+
+    } else throw new Error
+  }
+  
   printHeadTail(): void{
     console.log("head: ", this._head?.value, "tail: ",this._tail?.value)
   }

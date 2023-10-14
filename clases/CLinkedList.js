@@ -14,24 +14,20 @@ class CLinkedList {
     }
     addFirst(data) {
         let newNode = new Nodee_1.default(data);
-        // set relation between nodes
         newNode.next = this._head;
-        // update head
         this._head = newNode;
-        // only node case
         if (!this._tail)
             this._tail = newNode;
     }
     addLast(data) {
-        let newNode = new Nodee_1.default(data);
-        // set relation between nodes
-        if (this._tail)
-            this._tail.next = newNode;
-        // update tail
-        this._tail = newNode;
-        // case first node
-        if (!this._head)
+        const newNode = new Nodee_1.default(data);
+        if (!this._head) {
             this._head = newNode;
+            this._tail = newNode;
+            return;
+        }
+        this._tail.next = newNode;
+        this._tail = newNode;
     }
     deleteFirst() {
         if (!this._head)
@@ -74,14 +70,15 @@ class CLinkedList {
         }
     }
     contains(searchedValue) {
-        let currentNode = this._head;
-        while (currentNode) {
-            if (currentNode.value === searchedValue) {
-                return true;
-            }
-            currentNode = currentNode.next;
-        }
-        return false;
+        return this.indexOf(searchedValue) != -1;
+        // let currentNode: Nodee | null = this._head;
+        // while (currentNode) {
+        //   if (currentNode.value === searchedValue) {
+        //     return true;
+        //   }
+        //   currentNode = currentNode.next;
+        // }
+        // return false;
     }
     indexOf(searchedValue) {
         if (!this._head)
@@ -99,6 +96,33 @@ class CLinkedList {
             }
         }
         return IndexCounter;
+    }
+    reverse() {
+        if (this._head !== null && this._tail !== null && this._head !== this._tail) {
+            let auxNode = null;
+            let lastIterationPoint = null;
+            while (auxNode != this._head) {
+                let currentNode = this._head;
+                if (currentNode.next && currentNode.next != lastIterationPoint) {
+                    auxNode = currentNode;
+                    currentNode = currentNode.next;
+                }
+                else {
+                    if (auxNode == this._head)
+                        lastIterationPoint.next = this._head;
+                    else {
+                        currentNode.next = auxNode;
+                        lastIterationPoint = currentNode;
+                    }
+                }
+            }
+            let auxHead = this._head;
+            this._head = this._tail;
+            this._tail = auxHead;
+            auxHead = null;
+        }
+        else
+            throw new Error;
     }
     printHeadTail() {
         var _a, _b;
