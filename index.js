@@ -7,5 +7,5 @@ const CLinkedList_1 = __importDefault(require("./clases/CLinkedList"));
 let newLinkedList = new CLinkedList_1.default(1);
 newLinkedList.addLast(2);
 newLinkedList.addLast(3);
-// newLinkedList.reverse();
+newLinkedList.reverse2();
 newLinkedList.printHeadTail();

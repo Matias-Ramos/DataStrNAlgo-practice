@@ -122,7 +122,23 @@ class CLinkedList {
             auxHead = null;
         }
         else
-            throw new Error;
+            throw new Error("Not enough nodes to reverse.");
+    }
+    reverse2() {
+        if (this._head === null || this._tail === null || this._head === this._tail) {
+            throw new Error("Invalid operation: List cannot be reversed");
+        }
+        let prevNode = null;
+        let currentNode = this._head;
+        while (currentNode !== null) {
+            const nextNode = currentNode.next;
+            currentNode.next = prevNode;
+            prevNode = currentNode;
+            currentNode = nextNode;
+        }
+        const temp = this._head;
+        this._head = this._tail;
+        this._tail = temp;
     }
     printHeadTail() {
         var _a, _b;

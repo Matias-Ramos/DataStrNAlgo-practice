@@ -105,36 +105,48 @@ class CLinkedList implements ILinkedList {
     return IndexCounter;
   }
 
-  reverse():void{
-    if (this._head !== null && this._tail !== null && this._head !== this._tail){
+  
+  reverse(): void {
+    if (this._head === null || this._tail === null || this._head === this._tail) {
+        throw new Error("Invalid operation: List cannot be reversed");
+    }
+    
+    let prevNode: Nodee | null = null;
+    let currentNode: Nodee | null = this._head;
+    while (currentNode !== null) {
+        const nextNode : Nodee | null = currentNode.next;
+        currentNode.next = prevNode;
+        prevNode = currentNode;
+        currentNode = nextNode;
+    }
 
-      let auxNode: Nodee | null = null;
-      let lastIterationPoint: Nodee | null = null;
-      
-      while(auxNode != this._head){
+    let temp : Nodee | null = this._head;
+    this._head = this._tail;
+    this._tail = temp;
+    temp = null;
+}
 
-        let currentNode: Nodee = this._head;
+  getKthFromTheEnd(k: number): Nodee | null{
+    if(k <= 0 || this._head == this._tail && this._head == null)
+      throw new Error ("K argument is invalid or the LinkedList is not long enough (that's what she said)")
+    
+    let counter: number = 0;
+    let leader: Nodee | null = this._head;
+    let backer: Nodee | null = this._head;
 
-        if(currentNode.next && currentNode.next != lastIterationPoint){
-          auxNode = currentNode;
-          currentNode = currentNode.next;
-        } else {
-          if(auxNode == this._head)
-            lastIterationPoint!.next = this._head
-          else {
-            currentNode.next = auxNode;
-            lastIterationPoint = currentNode;
-          }
+    while( leader != null ){
+      // there is another node above
+      if( leader.next ){
+        counter++;
+        if (counter === k){
+          backer = leader
+          counter = counter - k;
         }
       }
-      let auxHead : Nodee | null = this._head;
-      this._head = this._tail;
-      this._tail = auxHead;
-      auxHead = null
-
-    } else throw new Error
+      leader = leader.next
+    }
+    return backer;   
   }
-  
   printHeadTail(): void{
     console.log("head: ", this._head?.value, "tail: ",this._tail?.value)
   }
