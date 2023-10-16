@@ -104,7 +104,6 @@ class CLinkedList implements ILinkedList {
   
     return IndexCounter;
   }
-
   
   reverse(): void {
     if (this._head === null || this._tail === null || this._head === this._tail) {
@@ -126,27 +125,56 @@ class CLinkedList implements ILinkedList {
     temp = null;
 }
 
-  getKthFromTheEnd(k: number): Nodee | null{
-    if(k <= 0 || this._head == this._tail && this._head == null)
-      throw new Error ("K argument is invalid or the LinkedList is not long enough (that's what she said)")
-    
-    let counter: number = 0;
-    let leader: Nodee | null = this._head;
-    let backer: Nodee | null = this._head;
+  getKthFromTheEnd(k: number): number {
+    if(k <= 0 || this._head == this._tail && this._head == null ){
+      throw new Error ("K argument is invalid or the Linked List has no nodes")
+    } else {
 
-    while( leader != null ){
-      // there is another node above
-      if( leader.next ){
-        counter++;
-        if (counter === k){
-          backer = leader
-          counter = counter - k;
-        }
+      let counter: number = 0;
+      let leader: Nodee | null = this._head;
+      let backer: Nodee | null = this._head;
+
+      while( leader != null ){
+        if(counter == k)
+          backer = backer!.next;
+        if(counter < k)
+          counter++;
+
+        leader = leader.next;
       }
-      leader = leader.next
+      return backer!.value;
     }
-    return backer;   
   }
+
+  printMiddle(): void{
+    if(this._head == null || this._tail == null || this._head.next == this._tail)
+      throw new Error("There are not enough nodes to call this function")
+    else{
+      
+      let counter: number = 0;
+      let leader: Nodee | null = this._head;
+      let backer: Nodee | null = this._head;
+      let middleNodes: (Nodee | null)[] = []
+      
+      while( leader != null ){  
+        if(counter>1){
+          // impar
+          if(counter % 2 == 0){
+            backer=backer!.next;
+            middleNodes = [backer];
+          }
+          else{
+            middleNodes = [backer, backer!.next]
+          }
+        }
+
+        counter++;
+        leader = leader.next;
+      }
+      console.log(middleNodes);
+    }
+  }
+
   printHeadTail(): void{
     console.log("head: ", this._head?.value, "tail: ",this._tail?.value)
   }

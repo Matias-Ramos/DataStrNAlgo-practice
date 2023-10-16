@@ -98,33 +98,6 @@ class CLinkedList {
         return IndexCounter;
     }
     reverse() {
-        if (this._head !== null && this._tail !== null && this._head !== this._tail) {
-            let auxNode = null;
-            let lastIterationPoint = null;
-            while (auxNode != this._head) {
-                let currentNode = this._head;
-                if (currentNode.next && currentNode.next != lastIterationPoint) {
-                    auxNode = currentNode;
-                    currentNode = currentNode.next;
-                }
-                else {
-                    if (auxNode == this._head)
-                        lastIterationPoint.next = this._head;
-                    else {
-                        currentNode.next = auxNode;
-                        lastIterationPoint = currentNode;
-                    }
-                }
-            }
-            let auxHead = this._head;
-            this._head = this._tail;
-            this._tail = auxHead;
-            auxHead = null;
-        }
-        else
-            throw new Error("Not enough nodes to reverse.");
-    }
-    reverse2() {
         if (this._head === null || this._tail === null || this._head === this._tail) {
             throw new Error("Invalid operation: List cannot be reversed");
         }
@@ -136,9 +109,53 @@ class CLinkedList {
             prevNode = currentNode;
             currentNode = nextNode;
         }
-        const temp = this._head;
+        let temp = this._head;
         this._head = this._tail;
         this._tail = temp;
+        temp = null;
+    }
+    getKthFromTheEnd(k) {
+        if (k <= 0 || this._head == this._tail && this._head == null) {
+            throw new Error("K argument is invalid or the Linked List has no nodes");
+        }
+        else {
+            let counter = 0;
+            let leader = this._head;
+            let backer = this._head;
+            while (leader != null) {
+                if (counter == k)
+                    backer = backer.next;
+                if (counter < k)
+                    counter++;
+                leader = leader.next;
+            }
+            return backer.value;
+        }
+    }
+    printMiddle() {
+        if (this._head == null || this._tail == null || this._head.next == this._tail)
+            throw new Error("There are not enough nodes to call this function");
+        else {
+            let counter = 0;
+            let leader = this._head;
+            let backer = this._head;
+            let middleNodes = [];
+            while (leader != null) {
+                if (counter > 1) {
+                    // impar
+                    if (counter % 2 == 0) {
+                        backer = backer.next;
+                        middleNodes = [backer];
+                    }
+                    else {
+                        middleNodes = [backer, backer.next];
+                    }
+                }
+                counter++;
+                leader = leader.next;
+            }
+            console.log(middleNodes);
+        }
     }
     printHeadTail() {
         var _a, _b;
