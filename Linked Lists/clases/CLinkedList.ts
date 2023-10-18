@@ -158,7 +158,7 @@ class CLinkedList implements ILinkedList {
       
       while( leader != null ){  
         if(counter>1){
-          // impar
+          // par
           if(counter % 2 == 0){
             backer=backer!.next;
             middleNodes = [backer];
@@ -172,6 +172,24 @@ class CLinkedList implements ILinkedList {
         leader = leader.next;
       }
       console.log(middleNodes);
+    }
+  }
+
+  hasLoop(): boolean{
+    if(this._head == null || this._tail == null || this._head.next == this._tail)
+      throw new Error("There are not enough nodes to call this function")
+    else{ 
+      let leader: Nodee | null = this._head;
+      let backer: Nodee | null = this._head;
+
+      while( leader !== backer || leader !== null || backer !== null ){
+        leader = leader!.next!.next;
+        backer = leader!.next;
+      }
+      if( leader === backer )
+        return true;
+      else
+        return false;
     }
   }
 

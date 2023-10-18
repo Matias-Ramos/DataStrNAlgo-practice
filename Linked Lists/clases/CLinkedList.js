@@ -142,7 +142,7 @@ class CLinkedList {
             let middleNodes = [];
             while (leader != null) {
                 if (counter > 1) {
-                    // impar
+                    // par
                     if (counter % 2 == 0) {
                         backer = backer.next;
                         middleNodes = [backer];
@@ -157,9 +157,26 @@ class CLinkedList {
             console.log(middleNodes);
         }
     }
+    hasLoop() {
+        if (this._head == null || this._tail == null || this._head.next == this._tail)
+            throw new Error("There are not enough nodes to call this function");
+        else {
+            let leader = this._head;
+            let backer = this._head;
+            while (leader !== backer || leader !== null || backer !== null) {
+                leader = leader.next.next;
+                backer = leader.next;
+            }
+            if (leader === backer)
+                return true;
+            else
+                return false;
+        }
+    }
     printHeadTail() {
         var _a, _b;
         console.log("head: ", (_a = this._head) === null || _a === void 0 ? void 0 : _a.value, "tail: ", (_b = this._tail) === null || _b === void 0 ? void 0 : _b.value);
     }
 }
 exports.default = CLinkedList;
+//# sourceMappingURL=CLinkedList.js.map

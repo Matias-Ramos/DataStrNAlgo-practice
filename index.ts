@@ -1,8 +1,14 @@
-import CLinkedList from "./clases/CLinkedList";
+import C_stack from "./Stacks/classes/C_stack"
 
-let newLinkedList = new CLinkedList(1);
-newLinkedList.addLast(2); 
-newLinkedList.addLast(3); 
-newLinkedList.addLast(4);
+let myStack = new C_stack<string>();
+const myText: string = "Hello!"
+const charArray: string[] = [...myText]
 
-newLinkedList.printMiddle();
+for(let ch of charArray){
+    myStack.push(ch)
+}
+
+
+myStack.reverse2();
+
+console.log(myStack);
