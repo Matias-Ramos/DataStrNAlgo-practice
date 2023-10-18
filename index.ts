@@ -1,7 +1,7 @@
 import C_stack from "./Stacks/classes/C_stack"
 
 let myStack = new C_stack<string>();
-const myText: string = "Hello!"
+const myText: string = "(([1] + <2>))"
 const charArray: string[] = [...myText]
 
 for(let ch of charArray){
@@ -9,6 +9,4 @@ for(let ch of charArray){
 }
 
 
-myStack.reverse2();
-
-console.log(myStack);
+console.log(myStack.expIsBalanced());

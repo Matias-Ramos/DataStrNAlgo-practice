@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const brackets_1 = __importDefault(require("../alias_types/brackets"));
 class Stack {
     constructor() {
         this.storage = [];
@@ -13,7 +17,7 @@ class Stack {
     }
     ;
     peek() {
-        return this.storage[this.storage.length];
+        return this.storage[this.storage.length - 1];
     }
     ;
     isEmpty() {
@@ -24,33 +28,32 @@ class Stack {
     }
     ;
     reverse() {
-        if (this.isEmpty() || this.storage.length === 1)
-            throw new Error("There are not enough values in the stack to execute this function");
-        let iOfReplaced = 0;
-        let arrayPositions = this.storage.length - 1;
-        for (let j = 0; j < arrayPositions; j++) {
-            let poppedItem = this.storage.pop();
-            for (let i = arrayPositions; i >= 0; i--) {
-                if (i == iOfReplaced) {
-                    this.storage[i] = poppedItem;
-                    iOfReplaced++;
+        let reversed = [];
+        let staticChainLength = this.storage.length;
+        for (let i = 0; i < staticChainLength; i++)
+            reversed.push(this.storage.pop());
+        this.storage = reversed;
+    }
+    expIsBalanced() {
+        // (([1] + <2>))
+        let detectedBrackets = [];
+        for (let stackItem of this.storage) {
+            for (let symbol of brackets_1.default) {
+                if (stackItem === symbol.opening)
+                    detectedBrackets.push(this.storage.pop());
+                if (stackItem === symbol.closing) {
+                    // console.log("detectedBrackets: ", detectedBrackets)
+                    const lastDetectedBracket = detectedBrackets[detectedBrackets.length - 1];
+                    if (lastDetectedBracket === symbol.opening) {
+                        detectedBrackets.pop();
+                    }
+                    else {
+                        return false;
+                    }
                 }
-                else if (i > iOfReplaced) {
-                    let previousValue = this.storage[i - 1];
-                    this.storage[i] = previousValue;
-                }
-                else
-                    continue;
             }
         }
-    }
-    reverse2() {
-        let reversed = [];
-        let staticStlength = this.storage.length;
-        for (let i = 0; i < staticStlength; i++) {
-            reversed.push(this.storage.pop());
-        }
-        this.storage = reversed;
+        return true;
     }
 }
 exports.default = Stack;
