@@ -1,14 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const C_stack_1 = __importDefault(require("./Stacks/classes/C_stack"));
-let myStack = new C_stack_1.default();
-const myText = "("; // 
-const charArray = [...myText];
-for (let ch of charArray) {
-    myStack.push(ch);
-}
-console.log(myStack.expIsBalanced());
+const C_stack_1 = require("./Stacks/classes/C_stack");
+let myStack = new C_stack_1.SharedStack1();
+myStack.push1(10);
+myStack.push1(20);
+myStack.push1(30);
+myStack.pop1();
+console.log(myStack.storage[10]);
 //# sourceMappingURL=index.js.map

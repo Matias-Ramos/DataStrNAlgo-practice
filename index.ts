@@ -1,12 +1,9 @@
-import C_stack from "./Stacks/classes/C_stack"
+import { SharedStack1 } from "./Stacks/classes/C_stack";
 
-let myStack = new C_stack<string>();
-const myText: string = "(" // 
-const charArray: string[] = [...myText]
+let myStack = new SharedStack1<number>();
+myStack.push1(10)
+myStack.push1(20)
+myStack.push1(30)
+myStack.pop1();
 
-for(let ch of charArray){
-    myStack.push(ch)
-}
-
-
-console.log(myStack.expIsBalanced());
+console.log(myStack.storage[10])

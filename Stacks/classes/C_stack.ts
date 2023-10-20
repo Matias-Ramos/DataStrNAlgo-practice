@@ -1,45 +1,49 @@
 import I_stack from "../interfaces/I_stack";
 import brackets from "../alias_types/brackets";
+import { SS_Unit } from "../alias_types/shared_stack_unit";
+
 
 abstract class SharedStackBackBone<T> {
-  protected storage: (T | undefined) [] = []
-  protected abstract push1(n: T): void;
-  protected abstract push2(n: T): void;
-  protected abstract pop1(): T;
-  protected abstract pop2(): T;
-  protected abstract isEmpty1(): boolean;
-  protected abstract isEmpty2(): boolean;
+  protected index: number = 0;
+  protected storage: ( SS_Unit<T, number> | undefined )[] = []
 }
 export class SharedStack1<T> extends SharedStackBackBone<T>{
 
-  private index: number = 0;
+  push1(n: T): void {
 
-  override push1(n: T): void{
-    this.storage[this.index] = n;
-    this.index += 2;
+    const new_node: SS_Unit<T, number> = {
+      value: n,
+      stack: 1
+    }
+
+    this.storage[this.index] = new_node;
+    this.index++;
   }
 
-  override pop1(): T{
-    if (this.storage.length === 0) throw new Error("Storage is empty");
+  pop1(): T | undefined {
+    if (this.storage.length === 0) {
+      throw new Error("Storage is empty")
+    } else {
+      let removed: T | undefined = undefined;
+      const len: number = this.storage.length - 1;
 
-    // PAR -> num % 2 === 0 
-    const len = this.storage.length - 1 ;
-    const aux = this.storage[len];
+      for (let i = len; i >= 0; i--) {
+        if (this.storage?[i].stack === 1) {
+          removed = this.storage[i].value;
+          this.storage[i].stack = undefined;
+          // this.storage[i].value = undefined;
+          break;
+        }
+      }
 
-    this.storage[len] = undefined;
-    this.index -= 2;
-
-    return aux!;
+      return removed;
+    }
   }
-  override isEmpty1(): boolean{
+  isEmpty1(): boolean{
     return this.storage.length > 0;
   }
 }
 
-
-class SharedStack2<T> extends SharedStackBackBone<T>{
-  private index: number = 1;
-}
 
 export default class Stack<T> implements I_stack<T> {
   private storage: (T | undefined)[] = [];
