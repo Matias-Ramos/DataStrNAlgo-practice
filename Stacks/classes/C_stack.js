@@ -11,22 +11,18 @@ class Stack {
     push(item) {
         this.storage.push(item);
     }
-    ;
     pop() {
         return this.storage.pop();
     }
-    ;
     peek() {
         return this.storage[this.storage.length - 1];
     }
-    ;
     isEmpty() {
         if (this.storage.length)
             return false;
         else
             return true;
     }
-    ;
     reverse() {
         let reversed = [];
         let staticChainLength = this.storage.length;
@@ -35,25 +31,24 @@ class Stack {
         this.storage = reversed;
     }
     expIsBalanced() {
-        // (([1] + <2>))
         let detectedBrackets = [];
         for (let stackItem of this.storage) {
             for (let symbol of brackets_1.default) {
                 if (stackItem === symbol.opening)
-                    detectedBrackets.push(this.storage.pop());
-                if (stackItem === symbol.closing) {
-                    // console.log("detectedBrackets: ", detectedBrackets)
+                    detectedBrackets.push(stackItem);
+                else if (stackItem === symbol.closing) {
                     const lastDetectedBracket = detectedBrackets[detectedBrackets.length - 1];
-                    if (lastDetectedBracket === symbol.opening) {
+                    if (lastDetectedBracket === symbol.opening)
                         detectedBrackets.pop();
-                    }
-                    else {
+                    else
                         return false;
-                    }
                 }
             }
         }
-        return true;
+        if (detectedBrackets.length === 0)
+            return true;
+        else
+            return false;
     }
 }
 exports.default = Stack;
