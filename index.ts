@@ -1,9 +1,11 @@
-import { SharedStack1 } from "./Stacks/classes/C_stack";
+import Queue from "./Queues/classes/c_queue_arr";
 
-let myStack = new SharedStack1<number>();
-myStack.push1(10)
-myStack.push1(20)
-myStack.push1(30)
-myStack.pop1();
+const queue = new Queue<string>();
 
-console.log(myStack.storage[10])
+queue.enqueue("A");
+queue.enqueue("B");
+queue.enqueue("C");
+queue.enqueue("D");
+
+console.log(queue.isEmpty());
+

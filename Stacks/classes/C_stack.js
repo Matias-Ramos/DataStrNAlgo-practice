@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SharedStack1 = void 0;
+exports.Stack = exports.SharedStack = void 0;
 const brackets_1 = __importDefault(require("../alias_types/brackets"));
 class SharedStackBackBone {
     constructor() {
@@ -11,35 +11,50 @@ class SharedStackBackBone {
         this.storage = [];
     }
 }
-class SharedStack1 extends SharedStackBackBone {
-    push1(n) {
+class SharedStack extends SharedStackBackBone {
+    constructor() {
+        super();
+        this._stackId = SharedStack.lastStackId;
+        SharedStack.lastStackId++;
+    }
+    push(newValue) {
         const new_node = {
-            value: n,
-            stack: 1
+            value: newValue,
+            stack: this._stackId
         };
         this.storage[this.index] = new_node;
         this.index++;
     }
-    pop1() {
+    pop() {
         if (this.storage.length === 0)
             throw new Error("Storage is empty");
-        let removed = undefined;
-        const len = this.storage.length - 1;
-        for (let i = len; i >= 0; i--) {
-            if (this.storage[i].stack === 1) {
-                removed = this.storage[i].value;
-                this.storage[i].stack = undefined;
-                // this.storage[i].value = undefined;
-                break;
+        else {
+            let removed = undefined;
+            const len = this.storage.length - 1;
+            let i;
+            for (i = len; i >= 0; i--) {
+                const currentNode = this.storage[i];
+                if ((currentNode === null || currentNode === void 0 ? void 0 : currentNode.stack) === this._stackId) {
+                    removed = currentNode;
+                    this.storage[i] = undefined;
+                    break;
+                }
             }
+            // fill blank space
+            if (removed) {
+                for (let j = i; j < len; j++) {
+                    this.storage[i] = this.storage[i + 1];
+                }
+            }
+            return removed;
         }
-        return removed;
     }
-    isEmpty1() {
+    isEmpty() {
         return this.storage.length > 0;
     }
 }
-exports.SharedStack1 = SharedStack1;
+exports.SharedStack = SharedStack;
+SharedStack.lastStackId = 0;
 class Stack {
     constructor() {
         this.storage = [];
@@ -87,5 +102,5 @@ class Stack {
             return false;
     }
 }
-exports.default = Stack;
+exports.Stack = Stack;
 //# sourceMappingURL=C_stack.js.map

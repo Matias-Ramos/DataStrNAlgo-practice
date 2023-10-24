@@ -5,47 +5,67 @@ import { SS_Unit } from "../alias_types/shared_stack_unit";
 
 abstract class SharedStackBackBone<T> {
   protected index: number = 0;
-  protected storage: ( SS_Unit<T, number> | undefined )[] = []
+  public storage: ( SS_Unit<T, number> | undefined )[] = []
 }
-export class SharedStack1<T> extends SharedStackBackBone<T>{
 
-  push1(n: T): void {
+export class SharedStack<T> extends SharedStackBackBone<T>{
+
+  private static lastStackId: number = 0;
+  private _stackId: number;
+
+  constructor(){
+    super();
+    this._stackId = SharedStack.lastStackId
+    SharedStack.lastStackId++;
+  }
+
+  push(newValue: T): void {
 
     const new_node: SS_Unit<T, number> = {
-      value: n,
-      stack: 1
+      value: newValue,
+      stack: this._stackId
     }
 
     this.storage[this.index] = new_node;
     this.index++;
   }
 
-  pop1(): T | undefined {
-    if (this.storage.length === 0) {
-      throw new Error("Storage is empty")
-    } else {
-      let removed: T | undefined = undefined;
-      const len: number = this.storage.length - 1;
+  pop(): ( SS_Unit<T, number> | undefined ) {
+    if (this.storage.length === 0) throw new Error("Storage is empty")
+    else {
 
-      for (let i = len; i >= 0; i--) {
-        if (this.storage?[i].stack === 1) {
-          removed = this.storage[i].value;
-          this.storage[i].stack = undefined;
-          // this.storage[i].value = undefined;
-          break;
+      let removed: SS_Unit<T, number> | undefined = undefined;
+      const len: number = this.storage.length - 1;
+      let i: number;
+
+      for (i = len; i >= 0; i--) {
+        const currentNode = this.storage[i];
+
+          if (currentNode?.stack === this._stackId) { 
+            removed = currentNode;
+            this.storage[i] = undefined;
+            break;
+          }
+      }
+
+      // fill blank space
+      if(removed){
+        for (let j = i; j < len ; j++) {
+          this.storage[i] = this.storage[i+1]
         }
       }
 
       return removed;
     }
   }
-  isEmpty1(): boolean{
+
+  isEmpty(): boolean{
     return this.storage.length > 0;
   }
 }
 
 
-export default class Stack<T> implements I_stack<T> {
+export class Stack<T> implements I_stack<T> {
   private storage: (T | undefined)[] = [];
   push(item: T): void {
     this.storage.push(item);
@@ -88,3 +108,4 @@ export default class Stack<T> implements I_stack<T> {
     else return false;
   }
 }
+

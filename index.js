@@ -1,10 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const C_stack_1 = require("./Stacks/classes/C_stack");
-let myStack = new C_stack_1.SharedStack1();
-myStack.push1(10);
-myStack.push1(20);
-myStack.push1(30);
-myStack.pop1();
-console.log(myStack.storage[10]);
+const c_queue_arr_1 = __importDefault(require("./Queues/classes/c_queue_arr"));
+const queue = new c_queue_arr_1.default();
+console.log(queue.isEmpty());
 //# sourceMappingURL=index.js.map
