@@ -6,6 +6,6 @@ queue.enqueue("A");
 queue.enqueue("B");
 queue.enqueue("C");
 queue.enqueue("D");
-
 console.log(queue.isEmpty());
+
 

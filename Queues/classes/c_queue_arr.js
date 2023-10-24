@@ -2,36 +2,51 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Queue {
     constructor() {
-        this.storage = [];
+        this._storage = [];
+        this._front = 0;
+        this._rear = 0;
+        // reverse(): void{
+        //   let auxArr: T [] = [...this.storage];
+        //   const len = this.storage.length - 1 ;
+        //   for( let i = len; i >= 0; i--){
+        //     const dequeued = this.dequeue()
+        //     auxArr[i] = dequeued
+        //   }
+        //   this.storage = auxArr;
+        // }
+    }
+    get storage() {
+        let auxArr = [];
+        for (let i = this._front; i < this._rear; i++) {
+            auxArr.push(this._storage[i]);
+        }
+        return auxArr;
     }
     enqueue(item) {
-        this.storage.push(item);
+        this._storage[this._rear] = item;
+        this._rear++;
     }
     dequeue() {
-        const dequeued = this.storage.shift();
-        if (dequeued === undefined)
-            throw new Error("Cannot dequeue on empty queue.");
-        return dequeued;
+        if (!this._storage[this._front])
+            throw new Error("Cannot dequeue an empty queue.");
+        const firstItem = this._storage[this._front++];
+        this._front === this._rear && this._rear++;
+        return firstItem;
     }
     peek() {
-        if (!this.storage.length)
+        if (!this._storage.length || !this._storage[this._front])
             throw new Error("Cannot dequeue on empty queue.");
-        return this.storage[this.storage.length - 1];
+        return this._storage[this._rear - 1];
     }
     size() {
-        return this.storage.length;
+        return this._storage.length;
     }
     isEmpty() {
-        return this.storage.length > 0;
-    }
-    reverse() {
-        let auxArr = [...this.storage];
-        const len = this.storage.length - 1;
-        for (let i = len; i >= 0; i--) {
-            const dequeued = this.dequeue();
-            auxArr[i] = dequeued;
-        }
-        this.storage = auxArr;
+        const hasFront = this._storage[this._front] ? true : false;
+        const hasRear = this._storage[this._rear] ? true : false;
+        console.log("this._front", this._storage[this._front]);
+        console.log("this._rear", this._storage[this._rear]);
+        return (!hasFront && !hasRear);
     }
 }
 exports.default = Queue;
