@@ -44,8 +44,6 @@ class Queue {
     isEmpty() {
         const hasFront = this._storage[this._front] ? true : false;
         const hasRear = this._storage[this._rear] ? true : false;
-        console.log("this._front", this._storage[this._front]);
-        console.log("this._rear", this._storage[this._rear]);
         return (!hasFront && !hasRear);
     }
 }
