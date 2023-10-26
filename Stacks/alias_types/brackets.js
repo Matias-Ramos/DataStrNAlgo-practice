@@ -23,4 +23,3 @@ const brackets = [
     chevrons
 ];
 exports.default = brackets;
-//# sourceMappingURL=brackets.js.map

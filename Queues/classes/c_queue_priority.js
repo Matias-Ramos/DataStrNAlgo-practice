@@ -28,4 +28,3 @@ class PriorityQueue {
     }
 }
 exports.default = PriorityQueue;
-//# sourceMappingURL=c_queue_priority.js.map

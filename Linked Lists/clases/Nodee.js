@@ -7,4 +7,3 @@ class Nodee {
     }
 }
 exports.default = Nodee;
-//# sourceMappingURL=Nodee.js.map

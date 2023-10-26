@@ -37,4 +37,3 @@ class QueueOfStacks {
     }
 }
 exports.default = QueueOfStacks;
-//# sourceMappingURL=c_queue_2stacks.js.map

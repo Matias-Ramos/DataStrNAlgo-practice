@@ -77,14 +77,6 @@ class CLinkedList implements ILinkedList {
 
   contains(searchedValue: number): boolean {
     return this.indexOf(searchedValue) != -1;
-    // let currentNode: Nodee | null = this._head;
-    // while (currentNode) {
-    //   if (currentNode.value === searchedValue) {
-    //     return true;
-    //   }
-    //   currentNode = currentNode.next;
-    // }
-    // return false;
   }
 
   indexOf(searchedValue: number): number {
