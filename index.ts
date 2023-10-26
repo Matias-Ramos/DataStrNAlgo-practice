@@ -1,8 +1,7 @@
-import LinkedList2 from "./Linked Lists/clases/c_linkedList_2";
+import LinkedListQueue from "./Queues/classes/c_queue_linkedList";
 
-let myLiLiQ = new LinkedList2<number>();
-myLiLiQ.addFirst(10)
-myLiLiQ.addFirst(20)
-myLiLiQ.addFirst(30)
-myLiLiQ.removeFirst()
-console.log(myLiLiQ.printHeadTail());
+let myLiLiQueue = new LinkedListQueue<number>();
+myLiLiQueue.enqueue(10);
+myLiLiQueue.enqueue(20);
+myLiLiQueue.enqueue(30);
+console.log(myLiLiQueue.peek());

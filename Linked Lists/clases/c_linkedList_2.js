@@ -5,25 +5,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Node2_1 = __importDefault(require("./Node2"));
 class LinkedList2 {
-    addFirst(value) {
+    /******************************** */
+    addNode(value) {
         let newNode = new Node2_1.default(value);
-        if (this.linkedListIsEmpty()) {
+        if (this.IsEmpty()) {
             this.head = newNode;
             this.tail = newNode;
         }
         else {
-            newNode.nextNode = this.head;
-            this.head = newNode;
+            this.tail.nextNode = newNode;
+            this.tail = newNode;
         }
     }
-    linkedListIsEmpty() {
-        return (!this.head && !this.tail);
-    }
-    printHeadTail() {
-        return [this.head, this.tail];
-    }
+    /******************************** */
     removeFirst() {
-        if (this.linkedListIsEmpty())
+        if (this.IsEmpty())
             throw new Error("Cannot remove a node on an empty Linked List.");
         let removed;
         if (this.head === this.tail)
@@ -42,6 +38,27 @@ class LinkedList2 {
         const oldHead = this.head;
         this.head = this.head.nextNode;
         return oldHead;
+    }
+    /******************************** */
+    printHeadTail() {
+        return [this.head, this.tail];
+    }
+    getHead() {
+        return this.head;
+    }
+    IsEmpty() {
+        return (!this.head && !this.tail);
+    }
+    size() {
+        if (this.IsEmpty())
+            return 0;
+        let current = this.head;
+        let counter = 0;
+        while (current != null) {
+            counter++;
+            current = current.nextNode;
+        }
+        return counter;
     }
 }
 exports.default = LinkedList2;

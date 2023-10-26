@@ -1,28 +1,29 @@
-import Node2 from "./Node2"
+import Node2 from "./Node2";
+
 export default class LinkedList2<T>{
     public head: Node2<T> | undefined;
     public tail: Node2<T> | undefined;
 
-    addFirst(value: T): void{
+    /******************************** */
+
+
+    addNode(value: T): void{
         let newNode = new Node2<T>(value)
         
-        if(this.linkedListIsEmpty()){
+        if(this.IsEmpty()){
             this.head = newNode;
             this.tail = newNode;
         } else {
-            newNode.nextNode = this.head!
-            this.head = newNode;
+            this.tail!.nextNode = newNode;
+            this.tail = newNode;
         }
     }
-    private linkedListIsEmpty(): boolean{
-        return (!this.head && !this.tail)
-    }
-    printHeadTail(): ( Node2<T> | undefined )[]{
-        return [this.head, this.tail]
-    }
+
+
+    /******************************** */
 
     removeFirst(): Node2<T>{
-        if(this.linkedListIsEmpty())
+        if(this.IsEmpty())
             throw new Error("Cannot remove a node on an empty Linked List.")
 
         let removed: Node2<T>;
@@ -33,6 +34,7 @@ export default class LinkedList2<T>{
 
         return removed;
     }
+
     private removeOnSingleNode(): Node2<T>{
         const oldHead = this.head
         this.head = undefined;
@@ -43,5 +45,34 @@ export default class LinkedList2<T>{
         const oldHead = this.head
         this.head = this.head!.nextNode
         return oldHead!;
+    }
+
+
+    /******************************** */
+
+
+    printHeadTail(): ( Node2<T> | undefined )[]{
+        return [this.head, this.tail]
+    }
+
+    getHead(): Node2<T> | undefined {
+        return this.head;
+    }
+    
+    IsEmpty(): boolean{
+        return (!this.head && !this.tail)
+    }
+
+    size(): number{
+        if(this.IsEmpty())
+            return 0
+
+        let current: Node2<T> | undefined = this.head;
+        let counter: number = 0;
+        while(current != null){
+            counter++;
+            current = current.nextNode;
+        }
+        return counter;
     }
 }
