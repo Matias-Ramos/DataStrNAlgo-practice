@@ -1,7 +1,4 @@
-import LinkedListQueue from "./Queues/classes/c_queue_linkedList";
+import findFirstUnique from "./Hash_Tables/uniqueInString";
 
-let myLiLiQueue = new LinkedListQueue<number>();
-myLiLiQueue.enqueue(10);
-myLiLiQueue.enqueue(20);
-myLiLiQueue.enqueue(30);
-console.log(myLiLiQueue.peek());
+const result = findFirstUnique("green wall");
+console.log(result);
