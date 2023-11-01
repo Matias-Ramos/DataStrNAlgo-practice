@@ -2,18 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function findFirstUnique(text) {
     // create charObj
-    let charsObj = {};
-    const charsArr = [...text];
-    charsArr.forEach(char => {
-        if (charsObj[char])
-            charsObj[char]++;
+    let charCountObj = {};
+    const charsInArray = [...text];
+    charsInArray.forEach(char => {
+        if (charCountObj[char])
+            charCountObj[char]++;
         else
-            charsObj[char] = 1;
+            charCountObj[char] = 1;
     });
     // iterate charObj
     let result = "";
-    for (const letter in charsObj) {
-        if (charsObj[letter] === 1) {
+    for (let letter in charCountObj) {
+        if (charCountObj[letter] === 1) {
             result = letter;
             break;
         }
