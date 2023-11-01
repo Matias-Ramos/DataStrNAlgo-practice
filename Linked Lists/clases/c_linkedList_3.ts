@@ -32,6 +32,46 @@ export default class LinkedList3{
         return (currentNode === undefined);
     }
 
+    public getValue(k: number): string | undefined {
+        let currentNode: (Node3 | undefined) = this.head;
+
+        while(currentNode){
+            if(currentNode.pair.key === k)
+                return currentNode.pair.value;
+            currentNode = currentNode.nextNode;
+        }
+        return undefined;
+    }
+
+    public deleteNode(k: number): void {
+        let currentNode: (Node3 | undefined) = this.head;
+        let previousNode: (Node3 | undefined);
+
+        while(currentNode !== undefined){
+            if(currentNode.pair.key === k){
+                // is head && >2 nodes
+                if(currentNode === this.head && currentNode.nextNode !== undefined){
+                    const secondNode = currentNode.nextNode
+                    currentNode.nextNode = undefined;
+                    currentNode = undefined;
+                    this.head = secondNode;
+                }
+                // is tail && >2 nodes
+                else if(currentNode === this.tail && previousNode){
+                    previousNode.nextNode = undefined
+                    currentNode = undefined;
+                }
+                // single Node
+                else {
+                    this.head = undefined;
+                    this.tail = undefined;
+                }
+            }
+            previousNode = currentNode;
+            currentNode = currentNode?.nextNode;
+        }
+    }
+
     private replaceTail(newNode: Node3): void{
         this.tail!.nextNode = newNode;
         this.tail = newNode;

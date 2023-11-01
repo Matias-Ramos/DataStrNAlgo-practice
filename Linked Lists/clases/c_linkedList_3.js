@@ -13,9 +13,60 @@ class LinkedList3 {
             this.tail = newNode;
         }
         else {
-            this.tail.nextNode = newNode;
-            this.tail = newNode;
+            const isNewKey = this.replaceValueifKeyExists(k, v);
+            isNewKey && this.replaceTail(newNode);
         }
+    }
+    replaceValueifKeyExists(k, v) {
+        let currentNode = this.head;
+        while (currentNode) {
+            if (currentNode.pair.key === k) {
+                currentNode.pair.value = v;
+                break;
+            }
+            currentNode = currentNode.nextNode;
+        }
+        return (currentNode === undefined);
+    }
+    getValue(k) {
+        let currentNode = this.head;
+        while (currentNode) {
+            if (currentNode.pair.key === k)
+                return currentNode.pair.value;
+            currentNode = currentNode.nextNode;
+        }
+        return undefined;
+    }
+    deleteNode(k) {
+        let currentNode = this.head;
+        let previousNode;
+        while (currentNode !== undefined) {
+            if (currentNode.pair.key === k) {
+                // is head && >2 nodes
+                if (currentNode === this.head && currentNode.nextNode !== undefined) {
+                    const secondNode = currentNode.nextNode;
+                    currentNode.nextNode = undefined;
+                    currentNode = undefined;
+                    this.head = secondNode;
+                }
+                // is tail && >2 nodes
+                else if (currentNode === this.tail && previousNode) {
+                    previousNode.nextNode = undefined;
+                    currentNode = undefined;
+                }
+                // single Node
+                else {
+                    this.head = undefined;
+                    this.tail = undefined;
+                }
+            }
+            previousNode = currentNode;
+            currentNode = currentNode === null || currentNode === void 0 ? void 0 : currentNode.nextNode;
+        }
+    }
+    replaceTail(newNode) {
+        this.tail.nextNode = newNode;
+        this.tail = newNode;
     }
     /******************************** */
     removeFirst() {
