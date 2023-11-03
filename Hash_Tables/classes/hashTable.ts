@@ -1,4 +1,4 @@
-import LinkedList3 from "../Linked Lists/clases/c_linkedList_3";
+import LinkedList3 from "../../Linked Lists/clases/c_linkedList_3";
 
 export default class HashTable {
 

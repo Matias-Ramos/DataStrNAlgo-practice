@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const c_linkedList_3_1 = __importDefault(require("../Linked Lists/clases/c_linkedList_3"));
+const c_linkedList_3_1 = __importDefault(require("../../Linked Lists/clases/c_linkedList_3"));
 class HashTable {
     constructor(size) {
         this.size = size;
