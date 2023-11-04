@@ -3,7 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const twoSum_1 = __importDefault(require("./Hash_Tables/classes/twoSum"));
-let myHashTable = new twoSum_1.default([2, 7, 11, 15]);
-const result = myHashTable.twoSum(9);
-console.log(result);
+const hashTableLinearProb_1 = __importDefault(require("./Hash_Tables/classes/hashTableLinearProb"));
+let myHashTable = new hashTableLinearProb_1.default(5);
+myHashTable.put(2, "1");
+myHashTable.put(2, "2");
+myHashTable.put(2, "3");
+myHashTable.put(2, "4");
+myHashTable.put(2, "5");
+// myHashTable.put(2, "6")
+console.log(myHashTable); // [4, 5, 1, 2, 3]
